@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Mobil;
@@ -11,19 +11,18 @@ class MobilController extends Controller
     public function index()
     {
         $mobil = Mobil::all();
-        return response()->json($mobil);
+        return view('admin.mobil.index', compact('mobil'));
     }
 
-    public function show($id)
+    public function create()
     {
-        $mobil = Mobil::findOrFail($id);
-        return response()->json($mobil);
+        return view('admin.mobil.create');
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'plat' => 'required|max:10|unique:mobil',
+            'plat' => 'required|max:10|unique:mobil,plat',
             'merk' => 'required|max:30',
             'model' => 'required|max:30',
             'type' => 'nullable|max:60',
@@ -33,18 +32,15 @@ class MobilController extends Controller
             'status' => 'required|max:30'
         ]);
 
-        $mobil = Mobil::create($request->all());
-        return response()->json($mobil, 201);
-    }
-    public function available()
-    {
-        // Ambil data mobil dengan status selain 'onGoing' dan 'completed'
-        $mobilAvailable = Mobil::whereNotIn('status', ['onGoing', 'approved', 'pending'])->get();
+        Mobil::create($request->all());
 
-        return response()->json([
-            'message' => 'List mobil available',
-            'data' => $mobilAvailable,
-        ]);
+        return redirect()->route('admin.mobil.index')->with('success', 'Data mobil berhasil ditambahkan.');
+    }
+
+    public function edit($id)
+    {
+        $mobil = Mobil::findOrFail($id);
+        return view('admin.mobil.edit', compact('mobil'));
     }
 
     public function update(Request $request, $id)
@@ -63,7 +59,7 @@ class MobilController extends Controller
         $mobil = Mobil::findOrFail($id);
         $mobil->update($request->all());
 
-        return response()->json($mobil);
+        return redirect()->route('admin.mobil.index')->with('success', 'Data mobil berhasil diperbarui.');
     }
 
     public function destroy($id)
@@ -71,6 +67,12 @@ class MobilController extends Controller
         $mobil = Mobil::findOrFail($id);
         $mobil->delete();
 
-        return response()->json(null, 204);
+        return redirect()->route('admin.mobil.index')->with('success', 'Data mobil berhasil dihapus.');
+    }
+
+    public function report()
+    {
+        $mobil = Mobil::all();
+        return view('kepalabengkel.report', compact('mobil'));
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\API\MobilController;
+use App\Http\Controllers\Web\MobilController;
 use App\Http\Controllers\Web\PemeriksaanController;
 use App\Http\Controllers\Web\PeminjamanController;
 use App\Http\Controllers\Web\SatpamController;

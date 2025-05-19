@@ -39,7 +39,7 @@
                             @if (count($mobil) > 0)
                                 @foreach ($mobil as $kendaraan)
                                     <tr>
-                                        <td>{{ $kendaraan->id_mobil }}</td>
+                                        <td>{{ $kendaraan->mobil_id }}</td>
                                         <td>{{ $kendaraan->nama }}</td>
                                         <td>{{ $kendaraan->jenis }}</td>
                                         <td>{{ $kendaraan->plat_nomor }}</td>
@@ -61,11 +61,13 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.mobil.edit', $kendaraan->id_mobil) }}"
+                                            {{-- <a href="{{ route('admin.mobil.edit', $kendaraan->id_mobil) }}" --}}
+                                            <a href="#"
                                                 class="btn btn-sm btn-info">
                                                 <i class="fas fa-edit"></i> Edit
                                             </a>
-                                            <form action="{{ route('admin.mobil.destroy', $kendaraan->id_mobil) }}"
+                                            {{-- <form action="{{ route('admin.mobil.destroy', $kendaraan->id_mobil) }}" --}}
+                                            <form>
                                                 method="POST" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
