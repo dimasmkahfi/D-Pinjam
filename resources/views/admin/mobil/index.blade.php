@@ -62,13 +62,11 @@
                                         </td>
                                         <td>
                                             {{-- <a href="{{ route('admin.mobil.edit', $kendaraan->id_mobil) }}" --}}
-                                            <a href="#"
-                                                class="btn btn-sm btn-info">
+                                            <a href="#" class="btn btn-sm btn-info">
                                                 <i class="fas fa-edit"></i> Edit
                                             </a>
                                             {{-- <form action="{{ route('admin.mobil.destroy', $kendaraan->id_mobil) }}" --}}
-                                            <form>
-                                                method="POST" class="d-inline">
+                                            <form method="POST" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-danger"
